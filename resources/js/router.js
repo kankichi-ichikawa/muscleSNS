@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 import Index from './pages/Index.vue'
 import PhotoList from './pages/PhotoList.vue'
 import Login from './pages/Login.vue'
+import PhotoDetail from './pages/PhotoDetail.vue'
 
 import store from './store'
 import SystemError from './pages/errors/System.vue'
@@ -38,7 +39,13 @@ const routes = [
     //システムエラー
     path: '/500',
     component: SystemError
-  }
+  },
+  {
+    //写真詳細
+    path: '/photos/:id',
+    component: PhotoDetail,
+    props: true
+  },
 ]
 
 // VueRouterインスタンスを作成する
