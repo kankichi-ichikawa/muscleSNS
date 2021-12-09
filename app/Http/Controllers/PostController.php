@@ -8,7 +8,7 @@ use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
-    // post一覧
+    // post一
     public function index(Post $post)
     {
         return view('posts/index')->with(['posts' => $post->getPaginateByLimit()]);

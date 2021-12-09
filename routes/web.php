@@ -1,5 +1,4 @@
 <?php
-
 Route::get('/{any?}','PostController@index');
 
 // Route::get('/posts', 'PostController@index');
