@@ -53,6 +53,7 @@ const actions = {
     context.commit('setApiStatus', null)
     
     // 通信エラーの取得
+    // 投げてから完結
     const response = await axios.post('/api/login', data)
       .catch(err => err.response || err)
   

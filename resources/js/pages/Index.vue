@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1>muscleSNS-</h1>
+        <v-btn>テストボタン</v-btn>
         <div class="post">
             <Post />
             <ul>
@@ -30,8 +31,14 @@ export default {
       posts: []
     }
   },
+  methods:{
+      getPosts(){
+          axios.get('/api/posts').then(response => this.posts = response.data);
+          
+      }
+  },
    mounted() {
-       axios.get('/api/posts').then(response => this.posts = response.data);
+       this.getPosts();
     }
 }
 </script>

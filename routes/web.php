@@ -1,4 +1,7 @@
 <?php
+// 投稿
+Route::post('/post', 'PostController@store');
+
 Route::get('/{any?}','PostController@index');
 
 // Route::get('/posts', 'PostController@index');

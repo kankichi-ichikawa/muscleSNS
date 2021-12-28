@@ -19,21 +19,6 @@
     </head>
     <body>
         <div id="app"></div>
-        <!--  <h1>Index</h1>-->
-        <!--    <div class='posts'>-->
-        <!--    [<a href="/posts/create">create</a>]-->
-        <!--    @foreach ($posts as $post)-->
-        <!--        <div class='post'>-->
-        <!--            <h2 class='title'>-->
-        <!--                <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>-->
-        <!--            </h2>-->
-        <!--            <small>type: {{ $post->type }}</small>-->
-        <!--            <p class='body'>{{ $post->body }}</p>-->
-        <!--        </div>-->
-        <!--    @endforeach-->
-        <!--</div>-->
-        <!--<div class='paginate'>-->
-        <!--    {{ $posts->links() }}-->
-        <!--</div>-->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     </body>
 </html>

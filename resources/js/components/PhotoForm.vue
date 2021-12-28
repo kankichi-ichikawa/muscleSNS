@@ -5,27 +5,24 @@
       <Loader>Sending your photo...</Loader>
     </div>
     <!--投稿(photo以外)-->
-    <form action="/posts" method="POST">
-            <div class="title">
-                <h2>Type</h2>
-                <select name="post[type]">
-                    <option value="train">トレーニング</option>
-                    <option value="meal">食事</option>
-                    <option value="body">身体変化</option>
-                </select>
-                <h2>Title</h2>
-                <input type="text" name="post[title]" placeholder="タイトル"/><br>
-            </div>
-            <div class="body">
-                <h2>Body</h2>
-                <textarea name="post[body]" placeholder="今日も1日お疲れさまでした。"></textarea>
-            </div>
-            <input type="submit" value="保存"/>
-            
-            <!--一時的なuserID-->
-            <input type="hidden" name="post[user_id]" value="master"/>
-            
-    </form>
+      {{ postForm  }}
+        <!--@csrf-->
+        <input type="hidden" name="_token" v-bind:value="csrf">
+        <div class="title">
+            <h2>Type</h2>
+            <select v-model=postForm.type>
+                <option value="train">トレーニング</option>
+                <option value="meal">食事</option>
+                <option value="body">身体変化</option>
+            </select>
+            <h2>Title</h2>
+            <input type="text" v-model=postForm.title placeholder="タイトル"/><br>
+        </div>
+        <div class="body">
+            <h2>Body</h2>
+            <textarea  v-model=postForm.body placeholder="今日も1日お疲れさまでした。"></textarea>
+        </div>
+
     <!--投稿phpto-->
     <form v-show="! loading" class="form" @submit.prevent="submit">
         <div class="errors" v-if="errors">
@@ -54,14 +51,21 @@ export default {
     value: {
       type: Boolean,
       required: true
-    }
+    },
   },
   data () {
     return {
       loading: false,
       preview: null,
       photo: null,
-      errors: null
+      errors: null,
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      postForm: {
+        type:'',
+        title:'',
+        img:'',
+        body:'',
+      },
     }
   },
   methods: {
@@ -105,10 +109,17 @@ export default {
       //ローディング
       this.loading = true    
       
-      //写真を送信
+      //写真を送信、パスをreturnコントローラ
+      // formDataファイル用
       const formData = new FormData()
       formData.append('photo', this.photo)
       const response = await axios.post('/api/photos', formData)
+      
+      // postと画像パス
+      this.postForm.img = response.data
+      axios.post('/post', this.postForm)
+      
+      
       
       this.loading = false
     
@@ -125,7 +136,8 @@ export default {
         return false
       }
     
-      this.$router.push(`/photos/${response.data.id}`)
+      // this.$router.push(`/photos/${response.data.id}`)
+      this.$router.push(`/`)
     }
   }
 }

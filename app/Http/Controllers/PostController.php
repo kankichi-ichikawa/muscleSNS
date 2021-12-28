@@ -29,9 +29,9 @@ class PostController extends Controller
     // post保存
      public function store(PostRequest $request, Post $post)
     {
-        $input = $request['post'];
+        $input = $request->input();
+        $input['user_id'] = auth()->user()->id;
         $post->fill($input)->save();
-        return redirect('/posts/' . $post->id);
     }
     
     // post編集
