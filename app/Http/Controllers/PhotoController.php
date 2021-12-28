@@ -14,13 +14,22 @@ class PhotoController extends Controller
     public function __construct()
     {
         // 認証が必要
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['indexP']);
     }
     
     // 投稿一覧
     public function index()
     {
         return \App\Post::all();
+    }
+    
+    //写真一覧
+    public function indexP()
+    {
+        $photos = \App\Post::with(['owner'])
+            ->orderBy(\App\Post::CREATED_AT, 'desc')->paginate();
+
+        return $photos;
     }
 
     /**
@@ -41,25 +50,34 @@ class PhotoController extends Controller
 
         // S3にファイルを保存する
         // 第三引数の'public'はファイルを公開状態で保存するため
-        Storage::cloud()
+        $path = Storage::cloud()
             ->putFileAs('', $request->photo, $photo->filename, 'public');
 
-        // データベースエラー時にファイル削除を行うため
-        // トランザクションを利用する
-        DB::beginTransaction();
+        // // データベースエラー時にファイル削除を行うため
+        // // トランザクションを利用する
+        // DB::beginTransaction();
 
-        try {
-            Auth::user()->posts()->save($photo);
-            DB::commit();
-        } catch (\Exception $exception) {
-            DB::rollBack();
-            // DBとの不整合を避けるためアップロードしたファイルを削除
-            Storage::cloud()->delete($photo->filename);
-            throw $exception;
-        }
+        // try {
+        //     // Auth::user()->posts()->save($photo);
+        //     // Auth::user()->photos()->save($photo);
+            
+            
+            
+        //     // photos()->save($photo);
+            
+            
+        //     DB::commit();
+        // } catch (\Exception $exception) {
+        //     DB::rollBack();
+        //     // DBとの不整合を避けるためアップロードしたファイルを削除
+        //     Storage::cloud()->delete($photo->filename);
+        //     throw $exception;
+        // }
 
         // リソースの新規作成なので
         // レスポンスコードは201(CREATED)を返却する
-        return response($photo, 201);
+        // return response($photo, 201);
+        return Storage::cloud()->url($path);
+        
     }
 }

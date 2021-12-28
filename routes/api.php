@@ -30,8 +30,13 @@ Route::get('/user', function(){
 // 写真投稿
 Route::post('/photos', 'PhotoController@create')->name('photo.create');
 
+
 //投稿一覧
 Route::get('/posts', 'PhotoController@index');
+
+//写真一覧
+Route::get('/phototo', 'PhotoController@indexP')->name('photo.index');
+
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();

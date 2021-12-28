@@ -1,4 +1,5 @@
 require('./bootstrap');
+import './bootstrap'
 import Vue from 'vue'
 // ルーティングの定義をインポートする
 import router from './router'
@@ -8,12 +9,27 @@ import App from './App.vue'
 import store from './store'
 // CSRF対策
 import './bootstrap'
+// vuetifyインポート
+import Vuetify from 'vuetify';
+import 'vuetify/dist/vuetify.min.css';
+Vue.use(Vuetify);
+
+export default new Vuetify({
+  theme: {
+    themes: {
+      light: {
+        background: "#f5f5f5",
+      }
+    }
+  }
+});
 
 const createApp = async () => {
   await store.dispatch('auth/currentUser')
 
 new Vue({
   el: '#app',
+  vuetify: new Vuetify(),//vuetify
   router, // ルーティングの定義を読み込む
   store,
   components: { App }, // ルートコンポーネントの使用を宣言する
