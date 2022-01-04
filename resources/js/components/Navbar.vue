@@ -7,7 +7,7 @@
         scroll-target="#scrolling-techniques-7"
         app
       >
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon style="z-index:1000;color:white;"></v-app-bar-nav-icon>
   
         <v-toolbar-title>Title</v-toolbar-title>
   

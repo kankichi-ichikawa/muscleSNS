@@ -9,12 +9,7 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
         
         <!-- Fonts -->
-        <link href="https:/fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('css/app2.css') }}">
-        <link rel="stylesheet" href="{{asset('css/icon.min.css')}}">
-        
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    
         
     </head>
     <body>

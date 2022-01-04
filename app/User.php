@@ -20,9 +20,9 @@ class User extends Authenticatable
     ];
     
     //JSONで表示
-    protected $visible = [
-        'name',
-    ];
+    // protected $visible = [
+    //     'name',
+    // ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -46,5 +46,23 @@ class User extends Authenticatable
     public function photos()
     {
         return $this->hasMany('App\Photo');
+    }
+    
+    // フォロワー→フォロー
+    public function followUsers()
+    {
+        return $this->belongsToMany('App\User', 'follows', 'followed_user_id', 'following_user_id');
+    }
+
+    // フォロー→フォロワー
+    public function follows()
+    {
+        return $this->belongsToMany('App\User', 'follows', 'following_user_id', 'followed_user_id');
+    }
+    
+    //フォロー確認
+    public function isFollow($userId)
+    {
+        return $this->follows()->where('followed_user_id', $userId)->exists();
     }
 }
