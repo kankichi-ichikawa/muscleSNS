@@ -13,6 +13,7 @@ import './bootstrap'
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 Vue.use(Vuetify);
+import '@mdi/font/css/materialdesignicons.css';
 
 export default new Vuetify({
   theme: {
@@ -21,7 +22,11 @@ export default new Vuetify({
         background: "#f5f5f5",
       }
     }
-  }
+  },
+  icons: {
+      iconfont: 'mdi', // 追加
+    },
+
 });
 
 const createApp = async () => {

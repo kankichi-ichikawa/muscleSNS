@@ -3,6 +3,7 @@
         <h1>muscleSNS-</h1>
         <v-btn>テストボタン</v-btn>
         <div class="post">
+            <Follow />
             <Post />
             <ul>
 	            <li v-for="(posts,index) in posts" v-bind:key="index" >
@@ -20,10 +21,12 @@
 </template>
 <script>
 import Post from '../components/Post.vue'
+import Follow from '../components/Follow.vue'
 
 export default {
   components: {
-    Post
+    Post,
+    Follow
   },
   data () {
     return {

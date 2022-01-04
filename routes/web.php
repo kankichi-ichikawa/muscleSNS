@@ -2,6 +2,16 @@
 // 投稿
 Route::post('/post', 'PostController@store');
 
+//フォロー
+Route::post('/follow/{user}', 'UserController@follow')->name('user.follow');
+
+//アンフォロー
+Route::post('/unfollow/{user}', 'UserController@unfollow')->name('user.unfollow');
+
+//user一覧
+Route::get('/users', 'UserController@index');
+
+
 Route::get('/{any?}','PostController@index');
 
 // Route::get('/posts', 'PostController@index');
